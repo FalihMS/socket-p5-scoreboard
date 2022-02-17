@@ -20,7 +20,7 @@ function setup() {
     noStroke();
     background(0);
     
-    timer = new Timer();
+    timer = new Timer(0);
     socket = io();
 
 
