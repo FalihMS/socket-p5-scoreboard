@@ -31,7 +31,7 @@ function setup() {
     });
 
     socket.on('start', function(inp) {
-        if(inp == -1){
+        if(inp == -100){
           timer.setCounter(0)
         }else if(inp >= 0){
           timer.setCounter(inp) 
