@@ -11,5 +11,6 @@ function setup() {
 
 function draw() {
     const date = new Date();
-    new Timebox(new Timer(date.getTime() + (1000 * 60 * 60 * 7)))
+    
+    new Timebox(new Timer(date.getTime() + (1000 * 60 * 60 * 7)), canvasWidth, canvasHeight)
 }

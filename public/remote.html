@@ -25,20 +25,29 @@
       <span>Minute: </span><input value="0" min="0" max="59" type="number" id="minute" autocomplete="off" /></br>
       <span>Second: </span><input value="0" min="0" max="59" type="number" id="second" autocomplete="off" /></br>
       <button id="startTimer">Start</button>
-      <button id="stopTimer">Stop</button>
-      
-      <!-- <button id="Increaseform">Increase</button>
-      <button id="DecreaseForm">Decrease</button> -->
+      <button id="stopTimer">Stop</button> 
+      <br>  
+      <h3>Score Home</h3>
+      <button id="IncreaseScoreA">Increase</button>
+      <button id="DecreaseScoreA">Decrease</button>
+      <br>  
+      <h3>Score Away</h3>
+      <button id="IncreaseScoreB">Increase</button>
+      <button id="DecreaseScoreB">Decrease</button>
     </form>
-    <form  action="">
-      <!-- <input id="input" autocomplete="off" /> -->
-    </form>
+
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
         var setTimer = document.getElementById('startTimer');
         var setTimerOff = document.getElementById('stopTimer');
         var input = document.getElementById('input');
+
+        var incScoreA = document.getElementById('IncreaseScoreA');
+        var decScoreA = document.getElementById('DecreaseScoreA');
+
+        var incScoreB = document.getElementById('IncreaseScoreB');
+        var decScoreB = document.getElementById('DecreaseScoreB');
 
         var socket = io();
 
@@ -110,6 +119,32 @@
           });
         }
 
+
+
+        if(incScoreA){
+          incScoreA.addEventListener('click', function(e){
+            console.log('clicked a')
+            socket.emit('editScore', 'HOME', 1, input.value);
+          })
+        }
+        if(decScoreA){
+          decScoreA.addEventListener('click', function(e){
+            console.log('clicked -a')
+            socket.emit('editScore', 'HOME', -1, input.value);
+          })
+        }
+        if(incScoreB){
+          incScoreB.addEventListener('click', function(e){
+            console.log('clicked b')
+            socket.emit('editScore', 'AWAY', 1, input.value);
+          })
+        }
+        if(decScoreB){
+          decScoreB.addEventListener('click', function(e){
+            console.log('clicked -b')
+            socket.emit('editScore', 'AWAY', -1, input.value);
+          })
+        }
 
 
     </script>

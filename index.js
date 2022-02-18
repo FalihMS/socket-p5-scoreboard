@@ -3,24 +3,27 @@ const express = require('express')
 const { Server } = require("socket.io");
 
 const app = express()
-
-
 app.use(express.static('public'))
-
 app.set('port', process.env.PORT || 3000)
 
 const server = http.createServer(app)
 const io = new Server(server);
-let counter = 0
+
+const refId = [];
+
 io.on('connection', (socket) => {
 
     console.log('user connected: ' + socket.id);
     io.emit('message', socket.id)
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('user disconnected, user id: ' + socket.id);
     });
-    
+
+    socket.on('editScore', (pos, type, id) => {
+        socket.broadcast.to(id).emit('score', pos, type);
+    });
+
     socket.on('remote-start', (msg, id) => {
         counter = 0
         counter = msg + 900

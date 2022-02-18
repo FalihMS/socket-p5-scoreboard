@@ -1,5 +1,6 @@
 class Segment{
     
+    
     SHAPE_TRIANGLE = 'TRIANGLE'
     SHAPE_RECTANGLE = 'RECTANGLE'
 
@@ -158,13 +159,15 @@ class SevenSegment{
 
     positionX = 0
     positionY = 0
+    width = 0
+    height = 0
+    gap = 0    
+
     length = 0
     number = 0
     gap = 0
 
     constructor(positionX, positionY, length, number){
-        this.length = length;
-
         if(number == undefined){
             this.number = -1;
 
@@ -172,15 +175,16 @@ class SevenSegment{
             this.number = number;
 
         }
-        
-        this.positionX = (positionX + (length / 12)) + (this.getWidth() / 2);
-        this.positionY = (positionY + (length / 12)) + (this.getWidth() / 2);
-        
+        this.length = length
+
+        this.positionX = positionX
+        this.positionY = positionY
+
+        this.width = length * 2 / 3
+        this.height = length
+
         this.gap = 5
     }
-
-
-
 
     getHeight(){
         return this.length / 3
@@ -215,14 +219,86 @@ class SevenSegment{
         
     }
     draw(){
-        new Segment(this.getWidth(), this.getHeight(), this.positionX, this.positionY, 'ver', this.mappingPattern(this.number)[0]).draw();
-        new Segment(this.getWidth(), this.getHeight(), this.positionX + this.gap, this.positionY - this.gap, 'hor', this.mappingPattern(this.number)[1]).draw();
-        new Segment(this.getWidth(), this.getHeight(), this.positionX + (2 * this.gap) + this.getHeight(), this.positionY, 'ver', this.mappingPattern(this.number)[2]).draw();
-        new Segment(this.getWidth(), this.getHeight(), this.positionX + this.gap, this.positionY + this.getHeight() + this.gap, 'hor', this.mappingPattern(this.number)[3]).draw();
-        new Segment(this.getWidth(), this.getHeight(), this.positionX, this.positionY + this.getHeight() + (2 * this.gap), 'ver', this.mappingPattern(this.number)[4]).draw();  
-        new Segment(this.getWidth(), this.getHeight(), this.positionX + this.gap, this.positionY + (3 * this.gap) + (2 * this.getHeight()), 'hor', this.mappingPattern(this.number)[5]).draw();
-        new Segment(this.getWidth(), this.getHeight(), this.positionX + (2 * this.gap) + this.getHeight(), this.positionY + this.getHeight() + (2 * this.gap), 'ver', this.mappingPattern(this.number)[6]).draw();  
+
+        // stroke(255, 204, 0);
+        // strokeWeight(1);
+        // fill(0, 0, 0)
+        // rect(this.positionX, this.positionY, this.width, this.height)
+
+        // noStroke()
+        let mapping = this.mappingSegment()
+
+        mapping.forEach((segment)=>{
+            new Segment(segment.width, segment.height, segment.positionX, segment.positionY, segment.direction, segment.lightOn).draw();
+            
+        })
     }
+
+    mappingSegment(){
+        let x = (this.positionX + (this.length / 8)) + (this.getWidth() / 2);
+        let y = (this.positionY + (this.length / 10)) + (this.getWidth() / 2);
+
+        return[
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x,
+                positionY: y,
+                direction: 'ver',
+                lightOn: this.mappingPattern(this.number)[0]
+            },
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x + this.gap,
+                positionY: y - this.gap,
+                direction: 'hor',
+                lightOn: this.mappingPattern(this.number)[1]
+            },
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x + (2 * this.gap) + this.getHeight(),
+                positionY: y,
+                direction: 'ver',
+                lightOn: this.mappingPattern(this.number)[2]
+            },
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x + this.gap,
+                positionY: y + this.getHeight() + this.gap,
+                direction: 'hor',
+                lightOn: this.mappingPattern(this.number)[3]
+            },
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x,
+                positionY: y + this.getHeight() + (2 * this.gap),
+                direction: 'ver',
+                lightOn: this.mappingPattern(this.number)[4]
+            },
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x + this.gap,
+                positionY: y + (3 * this.gap) + (2 * this.getHeight()),
+                direction: 'hor',
+                lightOn: this.mappingPattern(this.number)[5]
+            },
+            {
+                width: this.getWidth(),
+                height: this.getHeight(),
+                positionX: x + (2 * this.gap) + this.getHeight(),
+                positionY: y + this.getHeight() + (2 * this.gap),
+                direction: 'ver',
+                lightOn: this.mappingPattern(this.number)[6]
+            },
+        ]
+    }
+
+
 }
 
 class Divider{
@@ -233,29 +309,38 @@ class Divider{
 
     positionX = 0
     positionY = 0
+
+    width = 0
+    height = 0
+
     length = 0
     counter = 0    
 
     constructor(positionX, positionY, length, counter){
         this.positionX = positionX
         this.positionY = positionY
+        
         this.length = length
         this.counter = counter    
+
+        this.width = length/5
+        this.height = length
+    
     
     }
 
     calculate(){
         return{
             rect1:{
-                x1: this.positionX,
+                x1: this.positionX + this.length/20,
                 y1: this.positionY + (this.length/2) - (2 * this.length/10),
-                x2: (this.length/10),
+                x2: (this.length/20)*2,
                 y2: (this.length/10)
             },
             rect2:{
-                x1: this.positionX,
+                x1: this.positionX + this.length/20,
                 y1: this.positionY + (this.length/2) + (this.length/10),
-                x2: (this.length/10),
+                x2: (this.length/20) * 2,
                 y2: (this.length/10)
             }
         }
@@ -283,6 +368,10 @@ class Divider{
     }
 
     draw(){
+        // fill(0, 0, 255)
+        // rect(this.positionX, this.positionY, this.width, this.height)
+
+        noStroke();
         if(this.counter >= 0){
 
             let lightOn = this.counter % 2 == 0

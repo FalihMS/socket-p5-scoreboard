@@ -1,10 +1,13 @@
-let canvasWidth = screen.width
-let canvasHeight = screen.height
+const canvasWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+const canvasHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
 // Keep track of our socket connection
 let socket;
 let song;
 let timer;
+
+let scoreA = 0;
+let scoreB = 0;
 
 function preload() {
   song = loadSound('buzzer.mp3');
@@ -17,7 +20,6 @@ function setup() {
     createCanvas(canvasWidth, canvasHeight);
     
     frameRate(10)
-    noStroke();
     background(0);
     
     timer = new Timer(0);
@@ -25,9 +27,9 @@ function setup() {
 
 
     socket.on('message', function(inp) {
-      textSize(32);
-      fill(255);
-      text(socket.id , 10, 30);
+      // textSize(32);
+      // fill(255);
+      // text(socket.id , 10, 30);
     });
 
     socket.on('start', function(inp) {
@@ -38,12 +40,26 @@ function setup() {
         }
     });
 
+    socket.on('score', function(pos, val) {
+      if(pos == 'HOME'){
+        scoreA += val
+      }else{
+        scoreB += val 
+      }
+    });
+
 
 }
 
 function draw() {
+  let x = 100 * (canvasWidth/400)
+  let y = canvasHeight/3
+  let pl = x / 3
 
-    new Timebox(timer)
+  
+  new Timebox(timer, canvasWidth, canvasHeight/3)
+
+  new Scoreboard(canvasWidth, canvasHeight/2, [scoreA, scoreB])
     validatePressedMouse()
 
     timer.state(function(){
