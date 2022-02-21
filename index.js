@@ -76,12 +76,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('timer', (msg, id) => {
-        console.log('message: ' + msg + ' | id:' + id);
+         const pos = refId.map(function(e) { return e.key; }).indexOf(id);
+
         const loopSend = setInterval(function(){
             if(msg == 0){
                 clearInterval(loopSend)
             }
-            socket.broadcast.to(id).emit('display', msg);
+            socket.broadcast.to(refId[pos].value).emit('display', msg);
             
             msg -= 1000
         }, 1000)
