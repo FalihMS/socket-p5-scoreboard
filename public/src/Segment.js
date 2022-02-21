@@ -31,7 +31,7 @@ class Segment{
         }
     }
 
-    normalizeX(direction){
+    normalizeX(){
         if(this.direction == 'ver'){
             return this.positionX  - (this.width/2) 
         }else if(this.direction == 'hor'){

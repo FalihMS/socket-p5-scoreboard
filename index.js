@@ -11,13 +11,49 @@ const io = new Server(server);
 
 const refId = [];
 
-io.on('connection', (socket) => {
+function genUID(socketId){
+    const random = Math.floor(Math.random()*8999 + 1000)
+    let isInserted = refId.find(function(uid){
+        return uid.key == random
+    })
 
-    console.log('user connected: ' + socket.id);
+    if(isInserted){
+        genUID(socketId)
+    }else{
+        refId.push({
+            key: random,
+            value: socketId,
+        })
+    }
+}
+
+
+io.on('connection', (socket) => {
+    genUID(socket.id)
+
+    // console.log('user connected: ' + socket.id);
+    // console.log(`list Connection`)
+    console.log('===========================================')
+    refId.forEach(element => {
+        console.log(`socket: ${element.key} - ${element.value}`)       
+    });
+    console.log('===========================================')
+
     io.emit('message', socket.id)
 
     socket.on('disconnect', () => {
+        console.log('===========================================')
         console.log('user disconnected, user id: ' + socket.id);
+        pos = refId.map(function(e) { return e.value; }).indexOf(socket.id);
+        console.log(`deleting socket: ${refId[pos].key} - ${refId[pos].value}`)
+        refId.splice(pos, 1);
+        console.log('===========================================')
+        console.log('===========================================')
+        refId.forEach(element => {
+            console.log(`socket: ${element.key} - ${element.value}`)       
+        });
+        console.log('===========================================')
+    
     });
 
     socket.on('editScore', (pos, type, id) => {
@@ -53,7 +89,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('timer-end', (isEnd) => {
-        console.log('timer stop');
         io.emit('remote-end', isEnd)
     });
 
