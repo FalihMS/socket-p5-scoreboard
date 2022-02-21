@@ -63,20 +63,21 @@ io.on('connection', (socket) => {
     socket.on('remote-start', (msg, id) => {
         counter = 0
         counter = msg + 900
-        console.log('message: ' + msg + ' | id:' + id);
+
+        const pos = refId.map(function(e) { return e.key; }).indexOf(id);
+
+
         const loopSend = setInterval(function(){
             if(counter <= 0){
                 clearInterval(loopSend)
             }
-            console.log(counter)
-            socket.broadcast.to(id).emit('start', counter);
-            
+            socket.broadcast.to(refId[pos].value).emit('display', msg);
             counter -= 100
         }, 100)
     });
 
     socket.on('timer', (msg, id) => {
-         const pos = refId.map(function(e) { return e.key; }).indexOf(id);
+        const pos = refId.map(function(e) { return e.key; }).indexOf(id);
 
         const loopSend = setInterval(function(){
             if(msg == 0){
