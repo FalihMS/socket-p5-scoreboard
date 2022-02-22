@@ -19,7 +19,7 @@ class Timebox{
         let areaWidth = width
         let areaHeight = height
 
-        this.length = 100 * (areaWidth/650)
+        this.length = 125 * (areaWidth/650)
 
         this.timer = timer
 
@@ -33,7 +33,6 @@ class Timebox{
         this.y = 0 + this.py
 
         this.draw()
-
 
     }
 
