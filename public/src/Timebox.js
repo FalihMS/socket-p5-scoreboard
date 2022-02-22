@@ -43,21 +43,21 @@ class Timebox{
         strokeWeight(1);
         noFill()
         rect(this.x, this.y, this.width, this.height)
-
         noStroke()
+        
 
         let { s1, s2, m1, m2, h1, h2, counter1, counter2 } = this.timer.mappingDisplay()
 
         new SevenSegment(this.px + 0, this.y, this.length, h1).draw()
         new SevenSegment(this.px + this.length * 2/3, this.y, this.length, h2).draw()
-    
+
         new Divider(this.px + this.length * 2/3 * 2, this.y, this.length, counter1).draw()
-    
+
         new SevenSegment(this.px + this.length * 2/3 * 2 + (this.length/5), this.y, this.length, m1).draw()
         new SevenSegment(this.px + this.length * 2/3 * 3 + (this.length/5), this.y, this.length, m2).draw()
-    
+
         new Divider(this.px + this.length * 2/3 * 4 + (this.length/5), this.y, this.length, counter2).draw()
-    
+
         new SevenSegment(this.px + this.length * 2/3 * 4 + (2*this.length/5), this.y, this.length, s1).draw()
         new SevenSegment(this.px + this.length * 2/3 * 5 + (2*this.length/5), this.y, this.length, s2).draw()
     

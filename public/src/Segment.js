@@ -146,10 +146,12 @@ class Segment{
         this.coloring();
         if(shape == 'TRIANGLE'){
           const { x1, y1, x2, y2, x3, y3 } = coordinate
+          noStroke()
           triangle(x1, y1, x2, y2, x3, y3)
         }else if(shape == 'RECTANGLE'){
           
           const { x1, y1, x2, y2 } = coordinate
+          noStroke()
           rect(x1, y1, x2, y2);
         }
     }
@@ -348,11 +350,13 @@ class Divider{
 
     drawTop(){
         const { x1, y1, x2, y2 } = this.calculate().rect1
+        noStroke();
         rect(x1, y1, x2, y2);
     }
 
     drawBottom(){
         const { x1, y1, x2, y2 } = this.calculate().rect2
+        noStroke();
         rect(x1, y1, x2, y2);
 
     }
@@ -371,7 +375,6 @@ class Divider{
         // fill(0, 0, 255)
         // rect(this.positionX, this.positionY, this.width, this.height)
 
-        noStroke();
         if(this.counter >= 0){
 
             let lightOn = this.counter % 2 == 0

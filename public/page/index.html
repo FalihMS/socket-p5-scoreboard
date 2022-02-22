@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src:url("../src/font/sevenSegment.ttf");
+        }
+        
+        body{
+            font-family: myFirstFont;
+            background-color: black;
+            text-align: center;
+
+            margin-top: 10%;
+        }
+
+        h1{
+            color: red;
+            font-size: 6rem;
+            margin-inline: 2rem;
+        }
+
+        a{
+            color: red;
+            font-size: 3rem;
+            text-decoration: none;
+        }
+
+        a:hover{
+            color: rgb(255, 53, 46);
+        }
+        a.disabled {
+            color: rgb(71, 71, 71);
+            pointer-events: none;
+        }
+    </style>
+    <title>Scoreboard</title>
+</head>
+<body>
+    <h1>Digital Timer</h1>
+    <h5><a href="/clock">clock</a></h5>
+    <h5><a href="/timer" class="disabled">Timer ( On Development )</a></h5>
+    <h5><a href="/remote" class="disabled">remote ( On Development )</a></h5>
+</body>
+</html>

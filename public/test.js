@@ -21,7 +21,7 @@ function setup() {
     
     frameRate(10)
     background(0);
-    
+
     timer = new Timer(0);
     socket = io();
 
@@ -52,11 +52,7 @@ function setup() {
 }
 
 function draw() {
-  let x = 100 * (canvasWidth/400)
-  let y = canvasHeight/3
-  let pl = x / 3
-
-  
+ 
   new Timebox(timer, canvasWidth, canvasHeight/3)
 
   new Scoreboard(canvasWidth, canvasHeight/2, [scoreA, scoreB])
