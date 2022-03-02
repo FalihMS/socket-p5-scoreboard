@@ -5,6 +5,7 @@ let state = 'stop'
 
 let panel;
 let digitalFont;
+
 function preload(){
     digitalFont = loadFont('/src/font/sevenSegment.ttf')
 }
@@ -37,7 +38,7 @@ function draw() {
 }
 
 
-function mouseClicked() {
+function mousePressed() {
     if (state == 'play') {
         if(panel.hoverButton(1)){
             state = 'pause'
@@ -55,4 +56,5 @@ function mouseClicked() {
         }        
     }
     console.log(state)
+    return false;
   }
